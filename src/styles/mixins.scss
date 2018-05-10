@@ -1,0 +1,71 @@
+@import './variables';
+
+@mixin text-label {
+  font-size: 12px;
+  color: $label_color;
+  cursor: default;
+  margin: 4px;
+}
+
+@mixin text-input {
+  padding: 6px;
+  color: #5a5a5a;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+
+  &:focus {
+    outline-color: #adadad;
+  }
+}
+
+@mixin next-button {
+  cursor: pointer;
+  margin: 4px;
+  border: 1px solid #c1c1c1;
+  border-radius: 2px;
+  display: flex;
+  font-size: 14px;
+  color: #222;
+  font-weight: 400;
+  line-height: 1.2em;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .3s,color .3s;
+
+  &:hover {
+    background: #ff7963;
+    color: white;
+  }
+}
+
+@mixin prev-button {
+  cursor: pointer;
+  margin: 4px;
+  border: 1px solid #c1c1c1;
+  border-radius: 2px;
+  display: flex;
+  font-size: 14px;
+  color: #222;
+  font-weight: 400;
+  line-height: 1.2em;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .3s,color .3s;
+
+  &:hover {
+    background: #909090;
+    color: white;
+  }
+}
+
+@mixin not-valid {
+    border: 1px solid $active_tab;
+}
+
+@mixin finished {
+  color: grey;
+  text-align: center;
+  margin: 10px;
+}

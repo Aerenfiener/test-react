@@ -1,0 +1,68 @@
+@import "../../styles/mixins";
+
+.user-form {
+  width: 100%;
+  position: relative;
+
+  &_wrapper {
+    width: 100%;
+  }
+
+  &_input {
+    display: flex;
+    margin-bottom: 10px;
+
+    &_label {
+      display: flex;
+      //margin: 5px;
+      @include text-label;
+    }
+
+    input[type]:not([type=checkbox]) {
+      @include text-input;
+    }
+  }
+
+  &_checkbox {
+    display: inline-flex;
+    padding: 2px;
+
+    &_label {
+      display: inline-flex;
+      cursor: pointer;
+      @include text-label;
+    }
+
+  }
+
+  &_buttons {
+    &_wrapper {
+      position: absolute;
+      width: 100%;
+      bottom: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    &_next {
+      @include next-button;
+    }
+  }
+}
+
+.not-valid {
+  input[type]:not([type=checkbox]) {
+    @include not-valid;
+  }
+
+  &_checkbox {
+     .user-form_checkbox_label {
+        color: red;
+     }
+  }
+}
+
+.finished {
+  @include finished;
+}

@@ -1,0 +1,38 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+
+.finish {
+  &_wrapper {
+    width: 100%;
+    position: relative;
+  }
+
+  &_button {
+    @include next-button;
+    display: block;
+    width: 100px;
+    text-align: center;
+    background: #ffc3c3;
+
+
+    &_wrapper {
+      position: absolute;
+      width: 100%;
+      bottom: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  &_error {
+    color: $active_tab;
+
+    text-align: center;
+    margin: 10px;
+  }
+
+  &_success {
+    @include finished;
+  }
+}
