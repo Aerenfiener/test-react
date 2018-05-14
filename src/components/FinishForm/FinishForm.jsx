@@ -17,6 +17,9 @@ class FinishForm extends React.Component{
 
     onFinish() {
         const { cardStore, userStore } = this.props;
+        cardStore.onValidate();
+        userStore.onValidate();
+
         if (cardStore.getValid && userStore.getValid) {
             this.props.projectStore.setFinished();
         } else {

@@ -1,7 +1,7 @@
 import { observable, computed, action } from 'mobx';
 
 class ProjectStore {
-    @observable finished = false;
+    @observable.ref finished = false;
 
     @computed
     get isFinished() {

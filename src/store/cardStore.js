@@ -1,21 +1,23 @@
 import { observable, computed, action } from 'mobx';
 
 class CardStore {
-    @observable cardNumber = '';
+    @observable.ref cardNumber = '';
+    @observable.ref cardValid = true;
 
-    @computed
-    get getCardNumber() {
-        return this.cardNumber;
-    }
 
     @computed
     get getValid() {
-        return !!this.cardNumber;
+        return this.cardValid;
     }
 
     @action
     setCardNumber(cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    @action
+    onValidate() {
+        this.cardValid = !!this.cardNumber;
     }
 }
 

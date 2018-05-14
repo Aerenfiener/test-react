@@ -10,105 +10,54 @@ import { observer, inject } from "mobx-react"
 @observer
 
 class UserDataForm extends React.Component{
-    constructor(props) {
+    constructor() {
         super();
 
-
-        const user = props.userStore.getUserInfo;
-
-        this.state = {
-            validate: {
-                age: true,
-                name: true,
-                fullGrown: true
-            },
-            name: user.name,
-            age: user.age,
-            fullGrown: user.fullGrown
-        };
-
-        this.setWrapperNameRef = this.setWrapperNameRef.bind(this);
-        this.setWrapperAgeRef = this.setWrapperAgeRef.bind(this);
         this.onSubmitForm = this.onSubmitForm.bind(this);
+        this.onChangeAge = this.onChangeAge.bind(this);
+        this.onChangeName = this.onChangeName.bind(this);
         this.onChangeFullGrown = this.onChangeFullGrown.bind(this);
-
-        this.wrapperNameRef = null;
-        this.wrapperAgeRef = null;
-    }
-
-    setWrapperNameRef(node) {
-        if (node) {
-            this.wrapperNameRef = node;
-            this.wrapperNameRef.addEventListener('input', this.regexpName = () => {
-                const { value } = node;
-                this.wrapperNameRef.value = value.replace(/[^A-Za-z\s]/g, '');
-                this.setState({name: this.wrapperNameRef.value});
-            });
-        }
-    }
-    setWrapperAgeRef(node) {
-        if (node) {
-            this.wrapperAgeRef = node;
-            this.wrapperAgeRef.addEventListener('input', this.regexpAge = () => {
-                let { value } = node;
-                this.wrapperAgeRef.value = value.replace(/[^\d]/g, '').substring(0,3);
-                this.setState({ age: this.wrapperAgeRef.value });
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.wrapperNameRef) {
-            this.wrapperNameRef.removeEventListener('input', this.regexpName);
-        }
-        if (this.wrapperAgeRef) {
-            this.wrapperAgeRef.removeEventListener('input', this.regexpAge);
-        }
-    }
-
-    onChangeFullGrown(event) {
-        this.setState({ fullGrown: event.target.checked });
     }
 
     onSubmitForm = ev => {
-        if (!this.onValidationForm()) {
+
+        this.props.userStore.onValidate();
+        if (!this.props.userStore.getValid) {
             ev.preventDefault();
         }
-        const { userStore } = this.props;
-        const { name, age, fullGrown } = this.state;
-        userStore.setUserInfo( {name, age, fullGrown} );
     };
 
-    onValidationForm() {
-        const { name, age, fullGrown, validate } = this.state;
+    onChangeName(event) {
+        event.target.value = event.target.value.replace(/[^A-Za-z\s]/g, '');
+        this.props.userStore.setUserName(event.target.value);
+    }
 
-        this.setState({
-            validate: {
-                name: !!name,
-                age: !!age,
-                fullGrown: !!fullGrown
-            }
-        });
+    onChangeAge(event) {
+        event.target.value = event.target.value.replace(/[^\d]/g, '').substring(0,3);
+        this.props.userStore.setUserAge(event.target.value);
+    }
 
-        return !!(name && age && fullGrown);
+    onChangeFullGrown(event) {
+        this.props.userStore.setUserFullGrown(event.target.checked);
     }
 
     render() {
-        const { name, age, fullGrown, validate } = this.state;
-        const { projectStore } = this.props;
+        const { projectStore, userStore } = this.props;
+        const { user, validate } = userStore;
+        const { name, age, fullGrown } = user;
         return(
             <div className="user-form">
                 {
-                    !projectStore.isFinished ?
+                    !projectStore.finished ?
                         <div className="user-form_wrapper">
                             <div>
                                 <div className="user-form_input_label">Имя</div>
                                 <div className={classNames('user-form_input', {'not-valid': !validate.name})}>
-                                    <input type="text" defaultValue={name} onChange={this.onChangeName} ref={this.setWrapperNameRef} />
+                                    <input type="text" defaultValue={name} onChange={this.onChangeName} />
                                 </div>
                                 <div className="user-form_input_label">Возраст</div>
                                 <div className={classNames('user-form_input', {'not-valid': !validate.age})}>
-                                    <input type="text"  defaultValue={age} ref={this.setWrapperAgeRef} />
+                                    <input type="text"  defaultValue={age} onChange={this.onChangeAge} />
                                 </div>
                                 <div className={classNames('user-form_input', {'not-valid_checkbox': !validate.fullGrown})}>
                                     <div className="user-form_checkbox" >
