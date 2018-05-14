@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import './MenuForm.scss'
@@ -28,7 +28,8 @@ class MenuForm extends React.Component {
             case '/card':
                 cardStore.onValidate();
 
-                if (!cardStore.getValid) {
+                // Чтобы поведение по кнопкам и по табам не расходилось
+                if (!cardStore.getValid && event.currentTarget.attributes.href.textContent === '/finish') {
                     event.preventDefault();
                 }
                 break;
@@ -38,18 +39,18 @@ class MenuForm extends React.Component {
     render() {
         const { location, cardStore, userStore } = this.props;
         return (
-            <div>
+            <Fragment>
                 <div className="menu_wrapper">
                     <div className={classNames('menu_tab', {'menu_tab_active': location.pathname === '/user'})}>
                         <Link onClick={this.onGoToDifferentPage} to="/user">Личные данные</Link>
-                        { !userStore.getValid ?
+                        {!userStore.getValid ?
                             <div className="menu_tab_is-full">Необходимо заполнить!</div> :
                             null
                         }
                     </div>
                     <div className={classNames('menu_tab', {'menu_tab_active': location.pathname === '/card'})}>
                         <Link onClick={this.onGoToDifferentPage} to="/card">Номер банковской карты</Link>
-                        { !cardStore.getValid ?
+                        {!cardStore.getValid ?
                             <div className="menu_tab_is-full">Необходимо заполнить!</div> :
                             null
                         }
@@ -59,8 +60,7 @@ class MenuForm extends React.Component {
                         <Link onClick={this.onGoToDifferentPage} to="/finish">Завершение</Link>
                     </div>
                 </div>
-
-            </div>
+            </Fragment>
         )
     }
 }

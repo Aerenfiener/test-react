@@ -2,13 +2,9 @@
 @import "../../styles/variables";
 
 .finish {
-  &_wrapper {
-    width: 100%;
-    position: relative;
-  }
 
   &_button {
-    @include next-button;
+    @include button-default;
     display: block;
     width: 100px;
     text-align: center;
@@ -16,11 +12,7 @@
 
 
     &_wrapper {
-      position: absolute;
-      width: 100%;
-      bottom: 0px;
-      display: flex;
-      align-items: center;
+      @include buttons_wrapper;
       justify-content: flex-end;
     }
   }
@@ -30,9 +22,5 @@
 
     text-align: center;
     margin: 10px;
-  }
-
-  &_success {
-    @include finished;
   }
 }

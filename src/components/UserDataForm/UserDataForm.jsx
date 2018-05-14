@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom'
 import './UserDataForm.scss'
+import '../../styles/style.scss'
 import classNames from 'classnames';
 
 
@@ -46,35 +47,35 @@ class UserDataForm extends React.Component{
         const { user, validate } = userStore;
         const { name, age, fullGrown } = user;
         return(
-            <div className="user-form">
+            <div className="form">
                 {
                     !projectStore.finished ?
                         <div className="user-form_wrapper">
-                            <div>
-                                <div className="user-form_input_label">Имя</div>
-                                <div className={classNames('user-form_input', {'not-valid': !validate.name})}>
-                                    <input type="text" defaultValue={name} onChange={this.onChangeName} />
-                                </div>
-                                <div className="user-form_input_label">Возраст</div>
-                                <div className={classNames('user-form_input', {'not-valid': !validate.age})}>
-                                    <input type="text"  defaultValue={age} onChange={this.onChangeAge} />
-                                </div>
-                                <div className={classNames('user-form_input', {'not-valid_checkbox': !validate.fullGrown})}>
-                                    <div className="user-form_checkbox" >
-                                        <input id="age" type="checkbox" defaultChecked={fullGrown} onClick={this.onChangeFullGrown}/>
-                                    </div>
-                                    <div className="user-form_checkbox_label">
+                            <Fragment>
+                                <div className="text-label">Имя</div>
+                                <input type="text"
+                                       defaultValue={name}
+                                       onChange={this.onChangeName}
+                                       className={classNames('text-input', {'text-input__error': !validate.age})} />
+                                <div className="text-label">Возраст</div>
+                                <input type="text"
+                                       defaultValue={age}
+                                       onChange={this.onChangeAge}
+                                       className={classNames('text-input', {'text-input__error': !validate.age})} />
+                                <div className="user-form__checkbox_wrapper">
+                                    <input id="age" type="checkbox" defaultChecked={fullGrown} onClick={this.onChangeFullGrown}/>
+                                    <div className={classNames('user-form__checkbox__label', {'user-form__checkbox-error': !validate.fullGrown})} >
                                         <label htmlFor="age">мне есть 18 лет</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="user-form_buttons_wrapper">
-                                <Link onClick={this.onSubmitForm} to='/card' className="user-form_buttons_next">
+                            </Fragment>
+                            <div className="user-form__buttons_wrapper">
+                                <Link onClick={this.onSubmitForm} to='/card' className="button-next">
                                     Далее
                                 </Link>
                             </div>
                         </div> :
-                        <div className="finished">
+                        <div className="form__finished_wrapper">
                             Данные были успешно отправлены!
                         </div>
                 }

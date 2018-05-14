@@ -1,0 +1,52 @@
+@import './mixins';
+
+.form {
+  width: 100%;
+  position: relative;
+}
+
+.form__finished_wrapper {
+  color: grey;
+  text-align: center;
+  margin: 10px;
+}
+
+.text-input {
+  padding: 6px;
+  color: #5a5a5a;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+
+
+  &__error {
+    border: 1px solid $active_tab;
+  }
+
+  &:focus {
+    outline-color: #adadad;
+  }
+}
+
+.text-label {
+  @include text-label;
+}
+
+.button-next {
+  @include button-default;
+
+  &:hover {
+    background: #ff7963;
+    color: white;
+  }
+}
+
+.button-prev {
+  @include button-default;
+
+  &:hover {
+    background: #909090;
+    color: white;
+  }
+}

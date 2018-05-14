@@ -1,6 +1,6 @@
-@import "../../styles/mixins";
-
 .not-found_message {
   width: 100%;
-  @include finished;
+  color: grey;
+  text-align: center;
+  margin: 10px;
 }

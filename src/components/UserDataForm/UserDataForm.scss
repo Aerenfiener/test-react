@@ -1,68 +1,36 @@
+@import "../../styles/variables";
 @import "../../styles/mixins";
 
 .user-form {
-  width: 100%;
-  position: relative;
-
   &_wrapper {
     width: 100%;
   }
 
-  &_input {
-    display: flex;
-    margin-bottom: 10px;
-
-    &_label {
-      display: flex;
-      //margin: 5px;
-      @include text-label;
-    }
-
-    input[type]:not([type=checkbox]) {
-      @include text-input;
-    }
-  }
-
-  &_checkbox {
+  &__checkbox {
     display: inline-flex;
     padding: 2px;
 
-    &_label {
+    &_wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    &__label {
       display: inline-flex;
       cursor: pointer;
       @include text-label;
     }
 
+    &-error {
+      color: $active_tab;
+    }
+
   }
 
-  &_buttons {
+  &__buttons {
     &_wrapper {
-      position: absolute;
-      width: 100%;
-      bottom: 0px;
-      display: flex;
-      align-items: center;
+      @include buttons_wrapper;
       justify-content: flex-end;
     }
-
-    &_next {
-      @include next-button;
-    }
   }
-}
-
-.not-valid {
-  input[type]:not([type=checkbox]) {
-    @include not-valid;
-  }
-
-  &_checkbox {
-     .user-form_checkbox_label {
-        color: red;
-     }
-  }
-}
-
-.finished {
-  @include finished;
 }

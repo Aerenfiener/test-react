@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { observer, inject } from "mobx-react"
 import './CardDataForm.scss'
+import '../../styles/style.scss'
 import classNames from "classnames";
 
 
@@ -48,24 +49,25 @@ class CardDataForm extends React.Component{
         const { projectStore } = this.props;
         const { cardNumber, cardValid } = this.props.cardStore;
         return(
-            <div className="card-form_wrapper">
+            <div className="form">
                 {
                     !projectStore.finished ?
-                        <form>
-                            <div className="card-form_input_label">Номер банковской карты</div>
-                            <div className={classNames('card-form_input', {'not-valid': !cardValid})}>
-                                <input type="text" defaultValue={cardNumber} onChange={this.onCardChange} />
-                            </div>
+                        <Fragment>
+                            <div className="text-label">Номер банковской карты</div>
+                            <input type="text"
+                                   defaultValue={cardNumber}
+                                   onChange={this.onCardChange}
+                                   className={classNames('text-input', {'text-input__error': !cardValid})} />
                             <div className="card-form_buttons_wrapper">
-                                <Link to='/user' onClick={this.onValidate} className="card-form_buttons_prev">
+                                <Link to='/user' onClick={this.onValidate} className="button-prev">
                                     Назад
                                 </Link>
-                                <Link to='/finish' onClick={this.onSubmitForm} className="card-form_buttons_next">
+                                <Link to='/finish' onClick={this.onSubmitForm} className="button-next">
                                     Далее
                                 </Link>
                             </div>
-                        </form> :
-                        <div className="finished">
+                        </Fragment> :
+                        <div className="form__finished_wrapper">
                             Данные были успешно отправлены!
                         </div>
                 }

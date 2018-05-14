@@ -2,52 +2,12 @@
 
 .card-form {
   &_wrapper {
-    width: 100%;
-    position: relative;
-  }
-
-  &_input {
-    display: flex;
-    margin-bottom: 10px;
-
-    input {
-      @include text-input;
-    }
-
-    &_label {
-      display: flex;
-      //margin: 5px;
-      @include text-label;
-    }
   }
 
   &_buttons {
     &_wrapper {
-      position: absolute;
-      width: 100%;
-      bottom: 0px;
-      display: flex;
-      align-items: center;
+      @include buttons_wrapper;
       justify-content: space-between;
     }
-
-    &_next {
-      @include next-button;
-    }
-
-    &_prev {
-      @include prev-button;
-    }
   }
-}
-
-
-.not-valid {
-  input {
-    @include not-valid;
-  }
-}
-
-.finished {
-  @include finished;
 }

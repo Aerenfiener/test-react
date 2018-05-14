@@ -1,3 +1,6 @@
+@import "../../styles/mobile";
+
+
 .form {
   &_wrapper {
     display: flex;
@@ -12,6 +15,6 @@
 
 @media (max-width: 600px) {
   .form_wrapper {
-    width: 240px;
+    @include form-mobile;
   }
 }
